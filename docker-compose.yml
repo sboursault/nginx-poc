@@ -1,0 +1,20 @@
+version: '3'
+services:
+
+  reverse-proxy:
+    image: "nginx:1.15"
+    ports:
+      - "8080:80"
+      - "9443:443"
+    links:
+      - web-server1
+    volumes:
+      - "./config/default.conf:/etc/nginx/conf.d/default.conf"
+
+  web-server1:
+    image: "nginx:1.15"
+    ports:
+      - "8081:80"
+      - "8444:443"
+    volumes:
+      - "./www:/usr/share/nginx/html:ro"
